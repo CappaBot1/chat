@@ -1,4 +1,4 @@
-const ip = "http://localhost:8000";
+const url = "https://cappabot.com/api/chat";
 const decoder = new TextDecoder();
 const messages: string[] = [];
 
@@ -16,7 +16,7 @@ function drawScreen() {
 // Function to fetch messages every second and update display
 async function pollMessages() {
     while (true) {
-        const newMessages = await (await fetch(ip)).json();
+        const newMessages = await (await fetch(url)).json();
         if (JSON.stringify(newMessages) !== JSON.stringify(messages)) {
             messages.length = 0;
             messages.push(...newMessages);
@@ -39,7 +39,7 @@ async function handleInput() {
         for (const char of chunk) {
             if (char === "\r") { // Enter key pressed
                 if (input.trim()) {
-                    await fetch(ip, { method: "POST", body: input.trim() });
+                    await fetch(url, { method: "POST", body: input.trim() });
                 }
                 input = "";
             } else if (char === "\x7f") { // Handle backspace
