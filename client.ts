@@ -39,7 +39,7 @@ async function handleInput() {
         for (const char of chunk) {
             if (char === "\r") { // Enter key pressed
                 if (input.trim()) {
-                    await fetch(url, { method: "POST", body: input.trim() });
+                    await fetch(url, { method: "POST", body: username + ": " + input.trim() });
                 }
                 input = "";
             } else if (char === "\x7f") { // Handle backspace
@@ -60,6 +60,8 @@ async function handleInput() {
         }
     }
 }
+
+let username = prompt("Username:");
 
 // Start polling and input handling
 pollMessages();
